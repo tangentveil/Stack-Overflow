@@ -13,13 +13,15 @@ import imageIcon from "../../../assets/image-solid.svg";
 import videoIcon from "../../../assets/video-solid.svg";
 import emojiIcon from "../../../assets/face-smile-solid.svg";
 import shareIcon from "../../../assets/share.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Avatar from "../../../components/Avatar";
+import { allPosts } from "../../../actions/posts";
 
 const ContentPost = () => {
   const user = useSelector((state) => state.currentUserReducer);
   const id = user?.result?._id;
+  const dispatch  = useDispatch()
 
   const [file, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
@@ -79,7 +81,8 @@ const ContentPost = () => {
               }
             ).then((data) => {
               alert("Your Post was upload successfully");
-              window.location.reload(true);
+              // window.location.reload(true);
+              dispatch(allPosts())
             });
           });
         }
@@ -128,7 +131,8 @@ const ContentPost = () => {
               }
             ).then((data) => {
               alert("Your Post was upload successfully");
-              window.location.reload(true);
+              // window.location.reload(true);
+              dispatch(allPosts());
             });
           });
         }
@@ -144,7 +148,8 @@ const ContentPost = () => {
         }
       ).then((data) => {
         alert("Your Post was upload successfully");
-        window.location.reload(true);
+        // window.location.reload(true);
+        dispatch(allPosts());
       });
     }
   };

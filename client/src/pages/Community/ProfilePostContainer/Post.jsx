@@ -10,16 +10,18 @@ import commentIcon from "../../../assets/comment-solid.svg";
 import LikeIcon from "../../../assets/unlike.svg";
 import anotherLikeIcon from "../../../assets/like.svg";
 import trash from "../../../assets/trash-solid.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "../../../components/Avatar";
 import { Link } from "react-router-dom";
+import { allPosts } from "../../../actions/posts";
 
 const Post = ({ detail }) => {
   const users = useSelector((state) => state.currentUserReducer);
   const userId = users?.result?._id;
   const token = users?.token;
+  const dispatch = useDispatch();
 
-  console.log(detail);
+  // console.log(detail);
 
   const [count, setCount] = useState(detail.like.length);
   const [Comments, setComments] = useState(detail.comments);
@@ -118,7 +120,8 @@ const Post = ({ detail }) => {
       }
     ).then((data) => {
       alert("Your Post was deleted successfully");
-      window.location.reload(true);
+      // window.location.reload(true);
+      dispatch(allPosts());
     });
   };
 
