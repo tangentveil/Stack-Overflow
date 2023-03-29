@@ -1,0 +1,9 @@
+.ProfileContainer {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.subProfileContainer {
+    width: 80%;
+}

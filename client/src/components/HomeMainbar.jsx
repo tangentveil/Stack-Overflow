@@ -51,6 +51,8 @@ const HomeMainbar = () => {
   //   },
   // ];
 
+  const user = useSelector((state) => state.currentUserReducer);
+  // console.log(user.result._id)
   const questionList = useSelector((state) => state.AskQuestionReducer);
   // console.log(questionList)
 
@@ -64,7 +66,7 @@ const HomeMainbar = () => {
         ) : (
           <h1>All Questions</h1>
         )}
-        <Link to="/AskQuestion" className="ask-btn">
+        <Link to={`/AskQuestion/${user?.result?._id}`} className="ask-btn">
           Ask Question
         </Link>
       </div>
@@ -76,7 +78,7 @@ const HomeMainbar = () => {
             <p>{questionList.data.length} questions</p>
             <>
               {questionList.data.map((question) => {
-                return <Questions question={question} key={question.id} />;
+                return <Questions question={question} key={question._id} />;
               })}
             </>
           </>

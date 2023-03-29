@@ -74,12 +74,12 @@ const Navbar = () => {
               <Avatar
                 backgroundColor="#009dff"
                 px="10px"
-                py="15px"
+                py="16px"
                 borderRadius="50%"
                 color="white"
-                fontSize="16px"
+                fontSize="14px"
               >
-                {User.result.name.charAt(0).toUpperCase()}
+                {User?.result?.name?.charAt(0).toUpperCase()}
               </Avatar>
             </Link>
             <button className="nav-item nav-links" onClick={handleLogout}>

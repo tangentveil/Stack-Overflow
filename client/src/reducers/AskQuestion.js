@@ -3,6 +3,9 @@ const questionReducer = (state = { data: null }, action) => {
     case "POST_QUESTION":
       return { ...state };
 
+    case "UPDATE_SUBSCRIPTION":
+      return {...state};
+
     case "POST_ANSWER":
       return { ...state };
 

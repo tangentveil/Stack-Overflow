@@ -3,10 +3,12 @@ import authReducer from "./auth.js";
 import currentUserReducer from "./currentUser.js";
 import AskQuestionReducer from "./AskQuestion.js";
 import usersReducer from "./users.js";
+import postsReducer from "./post.js";
 
 export default combineReducers({
   authReducer,
   currentUserReducer,
   AskQuestionReducer,
-  usersReducer
+  usersReducer,
+  postsReducer
 });

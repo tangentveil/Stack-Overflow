@@ -24,6 +24,8 @@ const QuestionsDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  console.log(id)
+
   const questionList = useSelector((state) => state.AskQuestionReducer);
   // var questionList = [
   //   {
@@ -100,7 +102,7 @@ const QuestionsDetails = () => {
   };
 
   const location = useLocation();
-  const url = `http://localhost:3000`;
+  const url = `https://stackoverflow-server-9k5a.onrender.com`;
 
   const handleShare = () => {
     copy(url + location.pathname);

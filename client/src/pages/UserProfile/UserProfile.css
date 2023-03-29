@@ -6,6 +6,13 @@
     justify-content: space-between;
 }
 
+.profile-bio-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .user-details {
     display: flex;
     align-items: flex-start;
@@ -44,8 +51,11 @@
 
 .edit-profile-form {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
     border: solid 1px #dbd9d9;
     border-radius: 5px;
+    width: 100%;
 }
 
 .edit-profile-form label h3 {

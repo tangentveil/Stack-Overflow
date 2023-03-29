@@ -50,7 +50,7 @@ const tags = () => {
         </p>
         <div className="tags-list-container">
           {tagList.map((tag) => {
-            return <TagList tag={tag} key={tagList.id}></TagList>;
+            return <TagList tag={tag} key={tag.id}></TagList>;
           })}
         </div>
       </div>

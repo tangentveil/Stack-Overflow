@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from "axios";
 import LeftSidebar from "../../components/LeftSidebar";
 import Avatar from "../../components/Avatar";
 import { useSelector } from "react-redux";
@@ -9,14 +10,37 @@ import moment from "moment";
 import EditProfileForm from "./EditProfileForm";
 import ProfileBio from "./ProfileBio";
 import './UserProfile.css'
+import ProfileLeftbar from "../Community/ProfileLeftSideContainer/ProfileLeftbar";
+import ProfileRightbar from "../Community/ProfileRightsideContainer/ProfileRightbar";
 
 const UserProfile = () => {
   const { id } = useParams();
-  const users = useSelector((state) => state.usersReducer);
+  const currentUser = useSelector((state) => state.currentUserReducer);
+
+  const [users, setUsers] = useState([]);
+  // console.log(users);
+
+  useEffect(() => {
+    const getuser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/user/getAllUsers` ||
+            `https://stackoverflow-server-9k5a.onrender.com/user/getAllUsers`
+        );
+        setUsers(res.data);
+      } catch (error) {
+        console.log("Some error occured");
+      }
+    };
+    getuser();
+  }, []);
+
+
   const currentProfile = users.filter((user) => user._id === id)[0];
   // console.log(currentProfile)
 
-  const currentUser = useSelector((state) => state.currentUserReducer);
+
+  // console.log(currentUser)
 
   const [Switch, setSwitch] = useState(false);
 
@@ -30,9 +54,8 @@ const UserProfile = () => {
               backgroundColor="purple"
               color="white"
               fontSize="50px"
-              px="40px"
+              px="13px"
               py="30px"
-
               className="user-details-Avatar"
             >
               {currentProfile?.name.charAt(0).toUpperCase()}
@@ -45,7 +68,7 @@ const UserProfile = () => {
               </p>
             </div>
           </div>
-          {currentUser?.result._id === id && (
+          {currentUser?.result?._id === id && (
             <button
               type="button"
               onClick={() => setSwitch(true)}
@@ -55,6 +78,7 @@ const UserProfile = () => {
             </button>
           )}
         </section>
+
         <>
           {Switch ? (
             <EditProfileForm currentUser={currentUser} setSwitch={setSwitch} />

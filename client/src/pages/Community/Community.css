@@ -1,0 +1,11 @@
+.home {
+    background-color: #f1f2f3;
+    margin-top: 70px;
+}
+
+.ComponentContainer {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}

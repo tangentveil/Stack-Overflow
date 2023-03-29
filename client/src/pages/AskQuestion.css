@@ -13,6 +13,8 @@
 }
 
 .ask-ques-container form .ask-form-container {
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     background-color: white;
     border-radius: 3px;
@@ -39,7 +41,7 @@
     resize: vertical;
 }
 
-.review-btn{
+.review-btn {
     margin: 50px 0px;
     padding: 10px;
     background-color: #009dff;
@@ -50,6 +52,6 @@
     transition: 0.3s;
 }
 
-.review-btn:hover{
+.review-btn:hover {
     background-color: #0086d8;
 }

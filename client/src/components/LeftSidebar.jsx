@@ -7,7 +7,7 @@ const LeftSidebar = () => {
   return (
     <div className="left-sidebar">
       <nav className="side-nav">
-        <NavLink to="/" className="side-nav-links" activeClassName="active">
+        <NavLink to="/" className="side-nav-links" activeclassname="active">
           <p>Home</p>
         </NavLink>
         <div className="side-nav-div">
@@ -17,7 +17,7 @@ const LeftSidebar = () => {
           <NavLink
             to="/Questions"
             className="side-nav-links"
-            activeClassName="active"
+            activeclassname="active"
           >
             <img src={Globe} alt="Globe" width={18} />
             <p style={{ paddingLeft: "10px" }}>Questions</p>
@@ -26,7 +26,7 @@ const LeftSidebar = () => {
           <NavLink
             to="/Tags"
             className="side-nav-links"
-            activeClassName="active"
+            activeclassname="active"
             style={{ paddingLeft: "40px" }}
           >
             <p style={{ paddingLeft: "10px" }}>Tags</p>
@@ -35,10 +35,37 @@ const LeftSidebar = () => {
           <NavLink
             to="/Users"
             className="side-nav-links"
-            activeClassName="active"
+            activeclassname="active"
             style={{ paddingLeft: "40px" }}
           >
             <p style={{ paddingLeft: "10px" }}>Users</p>
+          </NavLink>
+
+          <NavLink
+            to="/chat"
+            className="side-nav-links"
+            activeclassname="active"
+            style={{ paddingLeft: "40px" }}
+          >
+            <p style={{ paddingLeft: "10px" }}>Chat Bot</p>
+          </NavLink>
+
+          <NavLink
+            to="/payment"
+            className="side-nav-links"
+            activeclassname="active"
+            style={{ paddingLeft: "40px" }}
+          >
+            <p style={{ paddingLeft: "10px" }}>Payment</p>
+          </NavLink>
+
+          <NavLink
+            to="/community"
+            className="side-nav-links"
+            activeclassname="active"
+            style={{ paddingLeft: "40px" }}
+          >
+            <p style={{ paddingLeft: "10px" }}>Community</p>
           </NavLink>
         </div>
       </nav>
