@@ -22,7 +22,6 @@ const UserProfile = () => {
     const getuser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/user/getAllUsers` ||
             `https://stackoverflow-server-9k5a.onrender.com/user/getAllUsers`
         );
         setUsers(res.data);

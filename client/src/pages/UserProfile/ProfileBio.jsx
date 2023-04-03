@@ -14,7 +14,7 @@ const ProfileBio = ({ currentProfile }) => {
   const userId = user?.result?._id;
   const token = user?.token;
 
-  console.log(token);
+  // console.log(token);
 
   const [Follow, setUnFollow] = useState(
     user?.result?.Following.includes(id) ? "Unfollow" : "Follow"
@@ -28,8 +28,7 @@ const ProfileBio = ({ currentProfile }) => {
     const getuser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/community/user/post/user/details/${id}` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/user/post/user/details/${id}`
+          `https://stackoverflow-server-9k5a.onrender.com/community/user/post/user/details/${id}`
         );
         setUsers(res.data);
       } catch (error) {
@@ -50,8 +49,7 @@ const ProfileBio = ({ currentProfile }) => {
     const getFollowing = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/community/posts/following/${id}` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`
+          `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`
         );
         setFollowinguser(res.data);
       } catch (error) {
@@ -64,8 +62,7 @@ const ProfileBio = ({ currentProfile }) => {
   const handleFollow = async (e) => {
     if (Follow === "Follow") {
       await fetch(
-        `http://localhost:5000/community/user/following/${id}` ||
-          `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`,
+        `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/JSON", token: token },
@@ -75,8 +72,7 @@ const ProfileBio = ({ currentProfile }) => {
       setUnFollow("Unfollow");
     } else {
       await fetch(
-        `http://localhost:5000/community/user/following/${id}` ||
-          `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`,
+        `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/JSON", token: token },
