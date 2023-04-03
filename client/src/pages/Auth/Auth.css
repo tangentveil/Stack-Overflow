@@ -1,6 +1,6 @@
 .auth-section {
     min-height: 100vh;
-    margin: 0% auto;
+    margin: 25px auto;
     background-color: #f1f2f3;
     display: flex;
     justify-content: center;
@@ -37,9 +37,10 @@
 
 .auth-container-2 form label input {
     padding: 10px;
-    width: calc(100% - 30px);
+    width: 100%;
     border: solid 1px #0000003e;
     font-size: 13px;
+    border-radius: 3px;
 }
 
 .auth-container-2 form label:nth-child(1) h4,
@@ -82,4 +83,21 @@
     border: none;
     font-size: 13px;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 786px) {
+    .auth-container-1 {
+        width: 67%;
+        margin-right: -98px;
+    }
+}
+
+@media only screen and (max-width: 661px) {
+    .auth-section {
+        flex-direction: column;
+    }
+
+    .auth-container-1 {
+        width: 80%;
+    }
 }

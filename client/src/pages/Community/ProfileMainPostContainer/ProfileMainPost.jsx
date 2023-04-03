@@ -1,32 +1,27 @@
 import React, { useEffect, useState } from "react";
 import ContentPost from "../ContentPostContainer/ContentPost";
 import axios from "axios";
-import image from "../../../assets/71840.jpg";
 import "./ProfileMainPost.css";
 import Post from "../ProfilePostContainer/Post";
 import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { allPosts } from "../../../actions/posts";
+import { userPosts } from "../../../actions/userPosts";
 
-const ProfileMainPost = ({currentProfile}) => {
+const ProfileMainPost = ({ currentProfile }) => {
+  const user = useSelector((state) => state.currentUserReducer);
+  const userId = user?.result?._id
   const { id } = useParams();
-  // console.log(id);
-  const [post, setPost] = useState([]);
-  
-  useEffect(() => {
-    const getPost = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/community/posts/get/post/${id}` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/posts/get/post/${id}`
-        );
-        setPost(res.data);
-      } catch (error) {
-        console.log("error occured");
-      }
-    };
-    getPost();
-  }, []);
 
-  // console.log(post);
+  // console.log(userId)
+
+  const dispatch = useDispatch();
+
+  const post = useSelector((state) => state.userpostsReducer);
+
+  useEffect(() => {
+    dispatch(userPosts(id));
+  }, [dispatch]);
 
   return (
     <div className="ProfilemainPostContainer">
@@ -41,7 +36,8 @@ const ProfileMainPost = ({currentProfile}) => {
           Posts
         </h2>
       </div>
-      <ContentPost currentProfile={currentProfile} />
+      {userId === id ? <ContentPost currentProfile={currentProfile} /> : ""}
+
       {post.map((item) => (
         <Post detail={item} key={item._id} />
       ))}

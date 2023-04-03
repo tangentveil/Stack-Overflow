@@ -6,7 +6,7 @@ import image from '../../../assets/71840.jpg'
 import { useSelector } from "react-redux";
 
 const Follow = ({ userdetails }) => {
-console.log(userdetails)
+// console.log(userdetails)
   const user = useSelector((state) => state.currentUserReducer);
   const id = user?.result?._id;
 
@@ -43,7 +43,7 @@ console.log(userdetails)
           justifyContent: "space-between",
         }}
       >
-        <Link to={`community/profile/${userdetails._id}`}>
+        <Link to={`Users/${userdetails._id}`}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
               src={`${image}`}

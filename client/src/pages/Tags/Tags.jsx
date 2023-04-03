@@ -1,5 +1,4 @@
 import React from "react";
-import LeftSidebar from "../../components/LeftSidebar";
 import TagList from "./TagList";
 import './Tags.css'
 
@@ -37,7 +36,6 @@ const tags = () => {
 
   return (
     <div className="home-container-1">
-      <LeftSidebar></LeftSidebar>
       <div className="home-container-2">
         <h1 className="tags-h1">Tags</h1>
         <p className="tags-p">

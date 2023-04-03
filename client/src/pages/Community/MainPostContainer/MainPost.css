@@ -1,3 +1,11 @@
 .mainPostContainer {
     flex: 3;
 }
+
+
+@media only screen and (max-width: 1070px) {
+    .mainPostContainer {
+        /* flex: 1 1; */
+        width: 62%;
+    }
+}

@@ -2,17 +2,6 @@
     flex: 1;
 }
 
-.NotificationsContainer {
-    width: 18pc;
-    height: 60vh;
-    background-color: white;
-    margin-top: 20px;
-    border-radius: 3px;
-    overflow: hidden;
-    overflow-y: scroll;
-    box-shadow: 3px 3px 10px rgb(0 0 0 /5%),
-            -3px -3px 10px rgb(0 0 0 / 5%);
-}
 
 .notificationimg {
     width: 37px;

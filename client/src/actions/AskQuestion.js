@@ -1,10 +1,10 @@
 import * as api from "../api";
 
-export const askQuestion = (id, questionData, navigate) => async (dispatch) => {
+export const askQuestion = (questionData, navigate) => async (dispatch) => {
   // console.log(id.userId)
   try {
     const { data } = await api.postQuestion(questionData);
-    // console.log(questionData)
+    console.log(questionData)
     dispatch({ type: "POST_QUESTION", payload: data });
 
     dispatch(fetchAllQuestions());
@@ -16,18 +16,6 @@ export const askQuestion = (id, questionData, navigate) => async (dispatch) => {
   }
 };
 
-
-export const updateSubscription = (id, nOfQuestionPerDay, navigate) => async (
-  dispatch
-) => { 
-  try {
-    const { data } = await api.UpdateSubscription(id, nOfQuestionPerDay);
-    dispatch({ type: "UPDATE_SUBSCRIPTION", payload: data });
-    navigate("/");
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 // fetching in App.js
 export const fetchAllQuestions = () => async (dispatch) => {

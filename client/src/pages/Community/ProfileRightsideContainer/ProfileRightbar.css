@@ -15,6 +15,7 @@
     overflow-y: scroll;
     box-shadow: 3px 3px 10px rgb(0 0 0 /5%),
             -3px -3px 10px rgb(0 0 0 / 5%);
+    padding: 10px;
 }
 
 .rightcontainer2 {

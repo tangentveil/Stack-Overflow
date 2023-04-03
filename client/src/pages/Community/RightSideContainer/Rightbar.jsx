@@ -6,7 +6,6 @@ import Follow from "./Follow";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
-import Explore from "./Explore";
 
 const Rightbar = () => {
   const user = useSelector((state) => state.currentUserReducer);
@@ -18,8 +17,7 @@ const Rightbar = () => {
     const getuser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/community/user/all/user/${id}` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/user/all/user/${id}`
+          `https://stackoverflow-server-9k5a.onrender.com/community/user/all/user/${id}`
         );
         setUsers(res.data);
       } catch (error) {
@@ -31,7 +29,6 @@ const Rightbar = () => {
 
   // console.log(users)
 
-
   return (
     <div className="rightbar">
       <div className="rightcontainer2">
@@ -39,9 +36,11 @@ const Rightbar = () => {
           Suggested for you
         </h3>
         {/* FIltering out logedin user */}
-        {users.filter((user) => id !== user._id).map((item) => (
-          <Follow userdetails={item} key={item._id} />
-        ))}
+        {users
+          .filter((user) => id !== user._id)
+          .map((item) => (
+            <Follow userdetails={item} key={item._id} />
+          ))}
       </div>
       {/* <Explore /> */}
     </div>

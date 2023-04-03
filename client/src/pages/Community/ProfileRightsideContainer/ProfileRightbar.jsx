@@ -31,24 +31,7 @@ const ProfileRightbar = () => {
     getFollowing();
   }, []);
 
-  // console.log(Followinguser);
-
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const getuser = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/community/user/all/user/${userId}` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/user/all/user/${userId}`
-        );
-        setUsers(res.data);
-      } catch (error) {
-        console.log("Some error occured");
-      }
-    };
-    getuser();
-  }, []);
+  console.log(Followinguser);
 
   // console.log(users);
 
@@ -71,12 +54,12 @@ const ProfileRightbar = () => {
                   <Avatar
                     backgroundColor="#009dff"
                     px="10px"
-                    py="16px"
+                    py="15px"
                     borderRadius="50%"
                     color="white"
                     fontSize="14px"
                   >
-                    {item?.name}
+                    {item?.name?.charAt(0).toUpperCase()}
                   </Avatar>
                 </Link>
                 <p style={{ textAlign: "start", marginLeft: "10px" }}>
@@ -87,33 +70,6 @@ const ProfileRightbar = () => {
           ))}
         </div>
       </div>
-
-      <div className="NotificationsContainer">
-        <h3>Followings</h3>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p style={{ marginLeft: 10 }}>Friends</p>
-          <p style={{ marginRight: 10, color: "#aaa" }}>See all</p>
-        </div>
-        <div style={{ display: "flex", flexWrap: "wrap", marginLeft: 5 }}>
-          {Followinguser.map((item) => (
-            <Link to={`/community/profile/${item._id}`}>
-              <div style={{ marginLeft: 4, cursor: "pointer" }} key={item._id}>
-                <img src={`${image}`} className="friendimage" alt="" />
-                <p style={{ marginTop: -2 }}>{item.name}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* <div className="rightcontainer2">
-        <h3 style={{ textAlign: "start", marginLeft: "10px" }}>
-          Suggested for you
-        </h3>
-        {users.map((item) => (
-          <Follow userdetails={item} key={item._id} />
-        ))}
-      </div> */}
     </div>
   );
 };

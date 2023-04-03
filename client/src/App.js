@@ -20,7 +20,6 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import Chat from "./pages/ChatBot/Chat";
 import Payment from "./pages/Payment/Payment";
 import Community from "./pages/Community/Community";
-import Profile from "./pages/Community/Profile/Profile";
 
 
 function App() {
@@ -30,21 +29,26 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchAllQuestions());
-    // dispatch(allPosts());
+    dispatch(allPosts());
     // dispatch(fetchAllUsers())
     // dispatch(setCurrentUser())
   }, [dispatch]);
 
+  const [sidebar, setSidebar] = useState(false);
+
+  const side = (data) => {
+    setSidebar(data);
+  }
 
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar side={side} />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<Home sidebar={sidebar} />}></Route>
           <Route path="/Auth" element={<Auth />}></Route>
           <Route path="/Questions" element={<Questions />}></Route>
-          <Route path="/AskQuestion/:id" element={<AskQuestion />}></Route>
+          <Route path="/AskQuestion" element={<AskQuestion />}></Route>
           <Route path="/Questions/:id" element={<DisplayQuestion />}></Route>
           <Route path="/Tags" element={<Tags />}></Route>
           <Route path="/Users" element={<Users />}></Route>
@@ -52,7 +56,7 @@ function App() {
           <Route path="/chat" element={<Chat />}></Route>
           <Route path="/payment" element={<Payment />}></Route>
           <Route path="/community" element={<Community />}></Route>
-          <Route path="/community/profile/:id" element={<Profile />}></Route>
+          {/* <Route path="/Users/:id" element={<UserProfile />}></Route> */}
         </Routes>
       </Router>
     </div>

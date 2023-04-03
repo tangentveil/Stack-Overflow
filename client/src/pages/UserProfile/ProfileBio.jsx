@@ -1,92 +1,91 @@
-
-import MyPosts from '../../pages/Community/ProfileMainPostContainer/ProfileMainPost'
+import MyPosts from "../../pages/Community/ProfileMainPostContainer/ProfileMainPost";
 import Profile from "../Community/Profile/Profile";
 import React, { useState, useEffect } from "react";
-// import "./Profileleftbar.css";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ProfileRightbar from '../Community/ProfileRightsideContainer/ProfileRightbar';
+import ProfileRightbar from "../Community/ProfileRightsideContainer/ProfileRightbar";
 
 const ProfileBio = ({ currentProfile }) => {
-   const { id } = useParams();
-   // console.log(id);
-   const user = useSelector((state) => state.currentUserReducer);
-   const userId = user?.result?._id;
-   const token = user?.token;
+  // const { id } = useParams();
+  // console.log(currentProfile._id)
+  const id = currentProfile?._id;
+  const user = useSelector((state) => state.currentUserReducer);
+  const userId = user?.result?._id;
+  const token = user?.token;
 
-   // console.log(token)
+  console.log(token);
 
-   const [Follow, setUnFollow] = useState([
-     user?.result?.Following.includes(id) ? "Unfollow" : "Follow",
-   ]);
+  const [Follow, setUnFollow] = useState(
+    user?.result?.Following.includes(id) ? "Unfollow" : "Follow"
+  );
 
-   let username = user?.result?.name;
+  let username = user?.result?.name;
 
-   const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
-   useEffect(() => {
-     const getuser = async () => {
-       try {
-         const res = await axios.get(
-           `http://localhost:5000/community/user/post/user/details/${id}` ||
-             `https://stackoverflow-server-9k5a.onrender.com/community/user/post/user/details/${id}`
-         );
-         setUsers(res.data);
-       } catch (error) {
-         console.log("Some error occured");
-       }
-     };
-     getuser();
-   }, []);
+  useEffect(() => {
+    const getuser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/community/user/post/user/details/${id}` ||
+            `https://stackoverflow-server-9k5a.onrender.com/community/user/post/user/details/${id}`
+        );
+        setUsers(res.data);
+      } catch (error) {
+        console.log("Some error occured");
+      }
+    };
+    getuser();
+  }, []);
 
-   // console.log(users)
+  // console.log(users)
 
-   let followersCounter = users?.Followers?.length;
-   let followingCounter = users?.Following?.length;
+  let followersCounter = users?.Followers?.length;
+  let followingCounter = users?.Following?.length;
 
-   const [Followinguser, setFollowinguser] = useState([]);
+  const [Followinguser, setFollowinguser] = useState([]);
 
-   useEffect(() => {
-     const getFollowing = async () => {
-       try {
-         const res = await axios.get(
-           `http://localhost:5000/community/posts/following/${id}` ||
-             `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`
-         );
-         setFollowinguser(res.data);
-       } catch (error) {
-         console.log("Error");
-       }
-     };
-     getFollowing();
-   }, []);
+  useEffect(() => {
+    const getFollowing = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/community/posts/following/${id}` ||
+            `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`
+        );
+        setFollowinguser(res.data);
+      } catch (error) {
+        console.log("Error");
+      }
+    };
+    getFollowing();
+  }, []);
 
-   const handleFollow = async (e) => {
-     if (Follow === "Follow") {
-       await fetch(
-         `http://localhost:5000/community/user/following/${id}` ||
-           `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`,
-         {
-           method: "PUT",
-           headers: { "Content-Type": "application/JSON", token: token },
-           body: JSON.stringify({ user: `${userId}` }),
-         }
-       );
-       setUnFollow("UnFollow");
-     } else {
-       await fetch(
-         `http://localhost:5000/community/user/following/${id}` ||
-           `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`,
-         {
-           method: "PUT",
-           headers: { "Content-Type": "application/JSON", token: token },
-           body: JSON.stringify({ user: `${userId}` }),
-         }
-       );
-       setUnFollow("Follow");
-     }
-   };
+  const handleFollow = async (e) => {
+    if (Follow === "Follow") {
+      await fetch(
+        `http://localhost:5000/community/user/following/${id}` ||
+          `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/JSON", token: token },
+          body: JSON.stringify({ user: `${userId}` }),
+        }
+      );
+      setUnFollow("Unfollow");
+    } else {
+      await fetch(
+        `http://localhost:5000/community/user/following/${id}` ||
+          `https://stackoverflow-server-9k5a.onrender.com/community/posts/following/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/JSON", token: token },
+          body: JSON.stringify({ user: `${userId}` }),
+        }
+      );
+      setUnFollow("Follow");
+    }
+  };
 
   return (
     <>
@@ -116,7 +115,7 @@ const ProfileBio = ({ currentProfile }) => {
             }}
           >
             <p style={{ color: "black", marginLeft: 20, fontSize: "14px" }}>
-              Followers
+              Following
             </p>
             <p
               style={{
@@ -167,25 +166,11 @@ const ProfileBio = ({ currentProfile }) => {
               </button>
             </div>
           ) : (
-            <div>
-              <button
-                style={{
-                  width: "100%",
-                  paddingTop: 7,
-                  paddingBottom: 7,
-                  border: "none",
-                  backgroundColor: "green",
-                  color: "white",
-                }}
-              >
-                Edit Bio
-              </button>
-            </div>
+            <div></div>
           )}
         </div>
 
         <div>
-          {/* <ProfileLeftbar currentProfile={currentProfile} /> */}
           <ProfileRightbar />
         </div>
       </div>

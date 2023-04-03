@@ -16,7 +16,6 @@ import { toast, Toaster } from "react-hot-toast";
 
 import "./Chat.css";
 
-import LeftSidebar from "../../components/LeftSidebar";
 
 const Chat = () => {
   const auth = getAuth(app);
@@ -106,7 +105,6 @@ const Chat = () => {
   return (
     <>
       <div className="home-container-1">
-        <LeftSidebar></LeftSidebar>
         <div className="chat-container">
           <section className="section">
             <div>

@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./ProfilePost.css";
 import axios from "axios";
 import image from "../../../assets/71840.jpg";
-import imageIcon from "../../../assets/image-solid.svg";
-import videoIcon from "../../../assets/video-solid.svg";
-import emojiIcon from "../../../assets/face-smile-solid.svg";
 import shareIcon from "../../../assets/share.svg";
 import commentIcon from "../../../assets/comment-solid.svg";
 import LikeIcon from "../../../assets/unlike.svg";
@@ -14,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Avatar from "../../../components/Avatar";
 import { Link } from "react-router-dom";
 import { allPosts } from "../../../actions/posts";
+import { userPosts } from "../../../actions/userPosts";
 
 const Post = ({ detail }) => {
   const users = useSelector((state) => state.currentUserReducer);
@@ -28,10 +26,6 @@ const Post = ({ detail }) => {
   const [commentWriting, setCommentWriting] = useState("");
   const [show, setshow] = useState(false);
 
-  const [Like, setLike] = useState(
-    detail.like.includes(userId) ? anotherLikeIcon : LikeIcon
-  );
-
   const [user, setuser] = useState([]);
 
   // console.log(detail.user)
@@ -40,8 +34,7 @@ const Post = ({ detail }) => {
     const getuser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/community/user/post/user/details/${detail.user}` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/user/post/user/details/${detail.user}`
+          `https://stackoverflow-server-9k5a.onrender.com/community/user/post/user/details/${detail.user}`
         );
         setuser(res.data);
       } catch (error) {
@@ -51,11 +44,14 @@ const Post = ({ detail }) => {
     getuser();
   }, []);
 
+  const [Like, setLike] = useState(
+    detail.like.includes(userId) ? anotherLikeIcon : LikeIcon
+  );
+
   const handleLike = async () => {
-    if (Like === LikeIcon) {
+    if (Like == LikeIcon) {
       await fetch(
-        `http://localhost:5000/community/posts/${detail._id}/like` ||
-          `https://stackoverflow-server-9k5a.onrender.com/community/posts/${detail._id}/like`,
+        `https://stackoverflow-server-9k5a.onrender.com/community/posts/${detail._id}/like`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/Json", token: token },
@@ -65,8 +61,7 @@ const Post = ({ detail }) => {
       setCount(count + 1);
     } else {
       await fetch(
-        `http://localhost:5000/community/posts/${detail._id}/dislike` ||
-          `https://stackoverflow-server-9k5a.onrender.com/community/posts/${detail._id}/dislike`,
+        `https://stackoverflow-server-9k5a.onrender.com/community/posts/${detail._id}/dislike`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/Json", token: token },
@@ -85,8 +80,7 @@ const Post = ({ detail }) => {
     };
 
     await fetch(
-      `http://localhost:5000/community/posts/comment/post` ||
-        `https://stackoverflow-server-9k5a.onrender.com/community/posts/comment/post`,
+      `https://stackoverflow-server-9k5a.onrender.com/community/posts/comment/post`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/Json", token: token },
@@ -113,15 +107,14 @@ const Post = ({ detail }) => {
 
   const handleDelete = async () => {
     await fetch(
-      `http://localhost:5000/community/posts/delete/post/${detail._id}` ||
-        `https://stackoverflow-server-9k5a.onrender.com/community/posts/delete/post/${detail._id}`,
+      `https://stackoverflow-server-9k5a.onrender.com/community/posts/delete/post/${detail._id}`,
       {
         method: "DELETE",
       }
     ).then((data) => {
       alert("Your Post was deleted successfully");
       // window.location.reload(true);
-      dispatch(allPosts());
+      dispatch(userPosts(detail._id));
     });
   };
 
@@ -197,7 +190,7 @@ const Post = ({ detail }) => {
                   onClick={handleLike}
                   alt=""
                 />
-                <p style={{ marginLeft: "6px" }}>{detail.like.length} Likes</p>
+                <p style={{ marginLeft: "6px" }}>{count} Likes</p>
               </div>
               <div
                 style={{
@@ -213,9 +206,7 @@ const Post = ({ detail }) => {
                   onClick={handleshow}
                   alt=""
                 />
-                <p style={{ marginLeft: "6px" }}>
-                  {detail.comments.length} Comments
-                </p>
+                <p style={{ marginLeft: "6px" }}>{Comments.length} Comments</p>
               </div>
             </div>
             <div
@@ -261,11 +252,22 @@ const Post = ({ detail }) => {
               {Comments.map((item) => (
                 <div style={{ alignItems: "center" }}>
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <img src={`${image}`} className="PostImage" alt="" />
+                    <Link to={`/Users/${item?._id}`} className="Avatar">
+                      <Avatar
+                        backgroundColor="#009dff"
+                        px="10px"
+                        py="16px"
+                        borderRadius="50%"
+                        color="white"
+                        fontSize="14px"
+                      >
+                        {item?.name?.charAt(0).toUpperCase()}
+                      </Avatar>
+                    </Link>
                     <p
                       style={{ marginLeft: "6px", fontSize: 18, marginTop: 6 }}
                     >
-                      {item.username}
+                      {item.name}
                     </p>
                   </div>
                   <p

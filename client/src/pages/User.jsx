@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import "./Users.css";
+import { userPosts } from '../actions/userPosts';
+import { useDispatch } from 'react-redux';
 
 const User = ({user}) => {
   return (

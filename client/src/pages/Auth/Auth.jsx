@@ -6,12 +6,14 @@ import AboutAuth from "./AboutAuth";
 import { signup, login } from "../../actions/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { CgSpinner } from "react-icons/cg";
 
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,14 +25,19 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setLoading(true)
+
     if (!email && !password) {
       alert("Enter email and password");
+      setLoading(false)
     }
 
     // passing the input data to actions/auth.js
     if (isSignup) {
+      setLoading(true);
       if (!name) {
         alert("Enter a name to continue");
+        setLoading(false);
       }
       dispatch(signup({ name, email, password }, navigate));
     } else {
@@ -76,7 +83,13 @@ const Auth = () => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h4>Password</h4>
               {!isSignup && (
-                <p style={{ color: "#007ac6", fontSize: "13px" }}>
+                <p
+                  style={{
+                    color: "#007ac6",
+                    fontSize: "13px",
+                    marginTop: "1rem",
+                  }}
+                >
                   forgot password?
                 </p>
               )}
@@ -107,6 +120,7 @@ const Auth = () => {
           )}
           <button type="submit" className="auth-btn">
             {isSignup ? "Sign up" : "Log in"}
+            {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
           </button>
           {isSignup && (
             <p style={{ color: "#666767", fontSize: "13px" }}>

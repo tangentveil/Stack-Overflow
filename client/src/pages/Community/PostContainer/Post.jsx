@@ -3,9 +3,6 @@ import "./Post.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import image from "../../../assets/71840.jpg";
-import imageIcon from "../../../assets/image-solid.svg";
-import videoIcon from "../../../assets/video-solid.svg";
-import emojiIcon from "../../../assets/face-smile-solid.svg";
 import shareIcon from "../../../assets/share.svg";
 import commentIcon from "../../../assets/comment-solid.svg";
 import LikeIcon from "../../../assets/unlike.svg";
@@ -17,6 +14,7 @@ import { Link } from "react-router-dom";
 import copy from "copy-to-clipboard";
 import Avatar from "../../../components/Avatar";
 import { allPosts } from "../../../actions/posts";
+import { userPosts } from "../../../actions/userPosts";
 
 const Post = ({ post }) => {
   const users = useSelector((state) => state.currentUserReducer);
@@ -27,11 +25,14 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(userPosts(post._id));
+  }, [dispatch]);
+
+  useEffect(() => {
     const getuser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/community/user/post/user/details/${post.user}` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/user/post/user/details/${post.user}`
+          `https://stackoverflow-server-9k5a.onrender.com/community/user/post/user/details/${post.user}`
         );
         setUser(res.data);
       } catch (error) {
@@ -54,8 +55,7 @@ const Post = ({ post }) => {
     if (users) {
       if (Like == LikeIcon) {
         await fetch(
-          `http://localhost:5000/community/posts/${post._id}/like` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/posts/${post._id}/like`,
+          `https://stackoverflow-server-9k5a.onrender.com/community/posts/${post._id}/like`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/Json", token: token },
@@ -65,8 +65,7 @@ const Post = ({ post }) => {
         setCount(count + 1);
       } else {
         await fetch(
-          `http://localhost:5000/community/posts/${post._id}/dislike` ||
-            `https://stackoverflow-server-9k5a.onrender.com/community/posts/${post._id}/dislike`,
+          `https://stackoverflow-server-9k5a.onrender.com/community/posts/${post._id}/dislike`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/Json", token: token },
@@ -92,8 +91,7 @@ const Post = ({ post }) => {
       };
 
       await fetch(
-        `http://localhost:5000/community/posts/comment/post` ||
-          `https://stackoverflow-server-9k5a.onrender.com/community/posts/comment/post`,
+        `https://stackoverflow-server-9k5a.onrender.com/community/posts/comment/post`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/Json", token: token },
@@ -130,14 +128,12 @@ const Post = ({ post }) => {
 
   const handleDelete = async () => {
     await fetch(
-      `http://localhost:5000/community/posts/delete/post/${post._id}` ||
-        `https://stackoverflow-server-9k5a.onrender.com/community/posts/delete/post/${post._id}`,
+      `https://stackoverflow-server-9k5a.onrender.com/community/posts/delete/post/${post._id}`,
       {
         method: "DELETE",
       }
     ).then((data) => {
       alert("Your Post was deleted successfully");
-      // window.location.reload(true);
       dispatch(allPosts());
     });
   };
@@ -148,7 +144,7 @@ const Post = ({ post }) => {
     <div className="PostContainer">
       <div className="SubPostContainer">
         <div className="post-heading">
-          <Link to={`/Users/${post?._id}`} className="Avatar">
+          <Link to={`/Users/${post._id}`} className="Avatar">
             <Avatar
               backgroundColor="#009dff"
               px="10px"
@@ -242,7 +238,18 @@ const Post = ({ post }) => {
         {show === true ? (
           <div style={{ padding: "10px" }}>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={`${image}`} className="PostImage" alt="" />
+              <Link to={`/Users/${userId}`} className="Avatar">
+                <Avatar
+                  backgroundColor="#009dff"
+                  px="10px"
+                  py="16px"
+                  borderRadius="50%"
+                  color="white"
+                  fontSize="14px"
+                >
+                  {users?.result?.name?.charAt(0).toUpperCase()}
+                </Avatar>
+              </Link>
               {/* <p style={{marginLeft:"6px"}}>Suman</p> */}
               <input
                 type="text"
@@ -257,15 +264,18 @@ const Post = ({ post }) => {
             {Comments.map((item) => (
               <div style={{ alignItems: "center" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  {item.profile === "" ? (
-                    <img
-                      src={`https://images.pexels.com/photos/1126993/pexels-photo-1126993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
-                      className="PostImage"
-                      alt=""
-                    />
-                  ) : (
-                    <img src={`${image}`} className="PostImage" alt="" />
-                  )}
+                  <Link to={`/Users/${item?._id}`} className="Avatar">
+                    <Avatar
+                      backgroundColor="#009dff"
+                      px="10px"
+                      py="16px"
+                      borderRadius="50%"
+                      color="white"
+                      fontSize="14px"
+                    >
+                      {item?.name?.charAt(0).toUpperCase()}
+                    </Avatar>
+                  </Link>
                   <p style={{ marginLeft: "6px", fontSize: 18, marginTop: 6 }}>
                     {item.name}
                   </p>
@@ -278,17 +288,6 @@ const Post = ({ post }) => {
                   }}
                 >
                   {item.comment}
-                </p>
-                <p
-                  style={{
-                    marginLeft: "55px",
-                    textAlign: "start",
-                    marginTop: -10,
-                    color: "#aaa",
-                    fontSize: 11,
-                  }}
-                >
-                  Reply
                 </p>
               </div>
             ))}

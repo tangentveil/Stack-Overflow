@@ -23,7 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40%;
+    width: 70%;
 }
 
 .chat-container{
@@ -31,6 +31,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-top: 100px;
 }
 
 .otp{

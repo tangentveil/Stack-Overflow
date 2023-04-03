@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://stackoverflow-server-9k5a.onrender.com" || "http://localhost:5000",
+  baseURL: "https://stackoverflow-server-9k5a.onrender.com",
+  // baseURL: "http://localhost:5000",
 });
 
 
@@ -18,8 +19,8 @@ API.interceptors.request.use((req) => {
 export const logIn = (authData) => API.post("/user/login", authData);
 export const signUp = (authData) => API.post("/user/signup", authData);
 
-export const postQuestion = (id, questionData) =>
-  API.post(`/questions/Ask/${id}`, questionData);
+export const postQuestion = (questionData) =>
+  API.post(`/questions/Ask`, questionData);
 
 export const getAllQuestions = () => API.get("/questions/get");
 
@@ -43,8 +44,6 @@ export const fetchAllUsers = () => API.get('/user/getAllUsers')
 
 export const UpdateProfile = (id, updateData) => API.patch(`/user/update/${id}`, updateData)
 
-export const UpdateSubscription = (id, nOfQuestionPerDay) =>
-         API.patch(`/questions/Ask/${id}`, nOfQuestionPerDay);
-
-
 export const AllPosts = () => API.get("/community/posts/AllPosts");
+
+export const UserPosts = (id) => API.get(`/community/posts/get/post/${id}`);

@@ -8,20 +8,20 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-import image from "../../../assets/71840.jpg";
 import imageIcon from "../../../assets/image-solid.svg";
 import videoIcon from "../../../assets/video-solid.svg";
-import emojiIcon from "../../../assets/face-smile-solid.svg";
-import shareIcon from "../../../assets/share.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Avatar from "../../../components/Avatar";
 import { allPosts } from "../../../actions/posts";
+import { userPosts } from "../../../actions/userPosts";
 
 const ContentPost = () => {
   const user = useSelector((state) => state.currentUserReducer);
-  const id = user?.result?._id;
+  const {id} = useParams();
   const dispatch  = useDispatch()
+
+  // console.log(id)
 
   const [file, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
@@ -30,6 +30,8 @@ const ContentPost = () => {
   // image and video Preview
   const [imagePre, setImagePre] = useState(null);
   const [VideoPre, setVideoPre] = useState(null);
+
+  const [progress, setPrgress] = useState("");
 
   // console.log(file?.name)
 
@@ -51,6 +53,7 @@ const ContentPost = () => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+          setPrgress(progress)
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");
@@ -83,6 +86,9 @@ const ContentPost = () => {
               alert("Your Post was upload successfully");
               // window.location.reload(true);
               dispatch(allPosts())
+              dispatch(userPosts(id))
+              setImagePre(null);
+              setPrgress("");
             });
           });
         }
@@ -101,6 +107,7 @@ const ContentPost = () => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+          setPrgress(progress);
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");
@@ -131,8 +138,10 @@ const ContentPost = () => {
               }
             ).then((data) => {
               alert("Your Post was upload successfully");
-              // window.location.reload(true);
               dispatch(allPosts());
+              dispatch(userPosts(id));
+              setVideoPre(null)
+              setPrgress("")
             });
           });
         }
@@ -148,8 +157,8 @@ const ContentPost = () => {
         }
       ).then((data) => {
         alert("Your Post was upload successfully");
-        // window.location.reload(true);
         dispatch(allPosts());
+        dispatch(userPosts(id));
       });
     }
   };
@@ -244,7 +253,7 @@ const ContentPost = () => {
               }}
               onClick={handlePost}
             >
-              Post
+              Post {Math.floor(progress)} %
             </button>
           </div>
         </div>
