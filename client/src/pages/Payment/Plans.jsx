@@ -25,12 +25,15 @@ const Plans = (props) => {
     <>
       <h4 className="d-flex justify-content-between align-items-center mb-3">
         <span className="text-muted">Plans</span>
-        <span className="badge bg-secondary badge-pill">3</span>
+        <span
+          className="badge badge-pill"
+          style={{ backgroundColor: "#ef8236" }}
+        >
+          3
+        </span>
       </h4>
       <ul className="list-group mb-3">
-        <li
-          className="list-group-item d-flex justify-content-between lh-condensed"
-        >
+        <li className="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 className="my-0">Free</h6>
             <small className="text-muted">post only 1 question a day</small>

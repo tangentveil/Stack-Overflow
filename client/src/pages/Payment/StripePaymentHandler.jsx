@@ -1,5 +1,4 @@
-const API_ENDPOINT =
-  "http://localhost:5000" || `https://stackoverflow-server-9k5a.onrender.com`;
+const API_ENDPOINT = `https://stackoverflow-server-9k5a.onrender.com`;
 
 export const stripePaymentMethodHandler = async (data, cb) => {
   const { amount, result } = data;

@@ -12,9 +12,9 @@ import {
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
-      lineHeight: "27px",
+      // lineHeight: "27px",
       color: "#212529",
-      fontSize: "1.1rem",
+      // fontSize: "1.1rem",
       "::placeholder": {
         color: "#aab7c4",
       },
@@ -146,7 +146,12 @@ const CheckoutForm = (props) => {
         </div>
 
         <hr className="mb-4" />
-        <button className="btn btn-dark w-100" type="submit" disabled={loading}>
+        <button
+          style={{ backgroundColor: "#009dff", border:"none" }}
+          className="btn btn-dark w-100"
+          type="submit"
+          disabled={loading}
+        >
           {loading ? (
             <div
               className="spinner-border spinner-border-sm text-light"

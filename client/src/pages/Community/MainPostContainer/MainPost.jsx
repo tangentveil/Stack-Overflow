@@ -7,11 +7,12 @@ import Post from '../PostContainer/Post'
 
 const MainPost = () => {
   const post = useSelector((state) => state.postsReducer);
+  const user = useSelector((state) => state.currentUserReducer);
 
 
   return (
     <div className="mainPostContainer">
-      <ContentPost />
+      {user ? <ContentPost /> : ""}
       {post.map((item) => (
         <Post post={item} key={item._id} />
       ))}

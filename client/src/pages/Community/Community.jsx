@@ -18,7 +18,6 @@ const Community = () => {
       <div className="home-container-2">
         <div className="ComponentContainer">
         <MainPost />
-        <Rightbar />
         </div>
       </div>
     </div>

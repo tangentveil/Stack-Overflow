@@ -19,18 +19,7 @@ const AskQuestion = () => {
   const [questionTags, setQuestionTags] = useState("");
   const [count, setCount] = useState(user?.result?.nOfQuestionPerDay);
 
-  // useEffect(() => {
-  //   dispatch(setCurrentUser());
-  // }, [dispatch]);
-
-
-  // useEffect(() => {
-  //   if(!user) navigate("/Auth");
-  // }, []);
-
-  console.log(count);
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     // console.log(typeof(questionTitle))
     e.preventDefault();
     if (count > 0) {
@@ -44,13 +33,16 @@ const AskQuestion = () => {
       );
 
       const nOfQuestionPerDay = {
-        nOfQuestionPerDay : count-1,
-      }
+        nOfQuestionPerDay: count - 1,
+      };
 
-      await fetch(`http://localhost:5000/user/updateSub/${userId}`, {
-        method: "PUT",
-        body: JSON.stringify(nOfQuestionPerDay),
-      });
+      await fetch(
+        `https://stackoverflow-server-9k5a.onrender.com/user/updateSub/${userId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(nOfQuestionPerDay),
+        }
+      );
 
       setCount(count - 1);
     } else {

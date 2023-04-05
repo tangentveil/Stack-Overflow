@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import {app} from '../../firebase.config.js'
+import { app } from "../../firebase.config.js";
 // import { getAuth } from "firebase/auth";
 
 import { BsFillShieldLockFill, BsTelephoneFill } from "react-icons/bs";
@@ -11,11 +11,14 @@ import OtpInput from "otp-input-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { auth } from "../../firebase.config";
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from "firebase/auth";
+import {
+  RecaptchaVerifier,
+  getAuth,
+  signInWithPhoneNumber,
+} from "firebase/auth";
 import { toast, Toaster } from "react-hot-toast";
 
 import "./Chat.css";
-
 
 const Chat = () => {
   const auth = getAuth(app);
@@ -36,8 +39,7 @@ const Chat = () => {
     setLoading(true);
 
     axios
-      .post("http://localhost:5000/chat" ||
-            `https://stackoverflow-server-9k5a.onrender.com/chat`, { prompt })
+      .post(`https://stackoverflow-server-9k5a.onrender.com/chat`, { prompt })
       .then((res) => {
         setLoading(false);
         setResponse(res.data);
@@ -100,14 +102,14 @@ const Chat = () => {
       });
   }
 
-  const user1 = localStorage.getItem("otpVerified")
+  const user1 = localStorage.getItem("otpVerified");
 
   return (
     <>
       <div className="home-container-1">
         <div className="chat-container">
           <section className="section">
-            <div>
+            <div className="section-div">
               <Toaster toastOptions={{ duration: 4000 }} />
               <div id="recaptcha-container"></div>
               {user || user1 ? (

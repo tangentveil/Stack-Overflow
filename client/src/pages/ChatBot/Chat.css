@@ -13,20 +13,27 @@
 
 .opt-container input {
     width: 32px;
-        height: 32px;
-        text-align: center;
-        /* margin-right: 20px; */
+    height: 32px;
+    text-align: center;
+    /* margin-right: 20px; */
 }
 
 
-.section{
+.section {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 70%;
 }
 
-.chat-container{
+.section-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.chat-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +41,7 @@
     margin-top: 100px;
 }
 
-.otp{
+.otp {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -54,24 +61,24 @@
         -3px -3px 10px rgb(0 0 0 / 5%);
 }
 
-.form-1 label{
+.form-1 label {
     margin-bottom: 5px;
     padding: 5px;
 }
 
-.form-1 input{
+.form-1 input {
     width: 100%;
     padding: 5px;
 }
 
-.form form{
+.form form {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
-.home-container-2{
+.home-container-2 {
     background-color: #f1f2f3;
 }
 
@@ -100,7 +107,7 @@
     width: 60%;
 }
 
-.telephone-icon{
+.telephone-icon {
     color: #009dff;
 }
 
@@ -108,10 +115,20 @@
     background-color: #0086d8;
 }
 
-.animate-spin{
+.animate-spin {
     float: left;
 }
 
 .otp-btn {
     margin-right: 25px;
+}
+
+@media only screen and (max-width: 531px) {
+    .section-div {
+        width: 100%;
+    }
+
+    .form {
+        padding: 30px;
+    }
 }

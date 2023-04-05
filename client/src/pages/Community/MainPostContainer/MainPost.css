@@ -1,11 +1,18 @@
 .mainPostContainer {
-    flex: 3;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
 }
 
 
-@media only screen and (max-width: 1070px) {
+/* @media only screen and (max-width: 1070px) {
     .mainPostContainer {
-        /* flex: 1 1; */
         width: 62%;
     }
 }
+
+.mainPostContainer {
+    width: 100%;
+}
+ */

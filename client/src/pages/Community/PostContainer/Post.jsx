@@ -117,9 +117,10 @@ const Post = ({ post }) => {
     }
   };
 
-  // const location = useLocation();
-  // const url = `http://localhost:5000/community/posts/user/post/${post._id}`;
-  const url = `https://stackoverflow-server-9k5a.onrender.com/community/posts/user/post/${post._id}`;
+  const location = useLocation();
+  const url = window.location.href;
+
+  console.log(url);
 
   const handleShare = () => {
     copy(url);
@@ -144,32 +145,63 @@ const Post = ({ post }) => {
     <div className="PostContainer">
       <div className="SubPostContainer">
         <div className="post-heading">
-          <Link to={`/Users/${post._id}`} className="Avatar">
-            <Avatar
-              backgroundColor="#009dff"
-              px="10px"
-              py="16px"
-              borderRadius="50%"
-              color="white"
-              fontSize="14px"
+          <div className="like-comment-share-div">
+            <div style={{ display: "flex", marginLeft: "10px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <Link to={`/Users/${users?.result?._id}`} className="Avatar">
+                  <Avatar
+                    backgroundColor="#009dff"
+                    px="10px"
+                    py="16px"
+                    borderRadius="50%"
+                    color="white"
+                    fontSize="14px"
+                  >
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </Avatar>
+                </Link>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: 20,
+                  cursor: "pointer",
+                }}
+              >
+                <p style={{ marginLeft: "5px", textAlign: "start" }}>
+                  {user.name}
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
             >
-              {user?.name?.charAt(0).toUpperCase()}
-            </Avatar>
-          </Link>
-
-          <div>
-            <p style={{ marginLeft: "5px", textAlign: "start" }}>{user.name}</p>
+              {userId === post.user ? (
+                <>
+                  <img
+                    src={`${trash}`}
+                    className="profile-moreicons"
+                    alt=""
+                    onClick={handleDelete}
+                  />
+                  <p style={{ marginLeft: "6px", marginTop: "1rem" }}>Delete</p>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
-          {userId === post.user ? (
-            <img
-              src={`${trash}`}
-              className="moreicons"
-              alt=""
-              onClick={handleDelete}
-            />
-          ) : (
-            " "
-          )}
         </div>
         <p
           style={{
@@ -206,7 +238,7 @@ const Post = ({ post }) => {
                 onClick={handleLike}
                 alt=""
               />
-              <p style={{ marginLeft: "6px" }}>{count} Likes</p>
+              <p style={{ marginLeft: "6px", marginTop: 0 }}>{count} Likes</p>
             </div>
             <div
               style={{
@@ -222,7 +254,9 @@ const Post = ({ post }) => {
                 onClick={handleShow}
                 alt=""
               />
-              <p style={{ marginLeft: "6px" }}>{Comments.length} Comments</p>
+              <p style={{ marginLeft: "6px", marginTop: 0 }}>
+                {Comments.length} Comments
+              </p>
             </div>
           </div>
           <div className="shareIcon-div">
@@ -232,7 +266,7 @@ const Post = ({ post }) => {
               onClick={handleShare}
               alt=""
             />
-            <p style={{ marginLeft: "6px" }}>Share</p>
+            <p style={{ marginLeft: "6px", marginTop: 0 }}>Share</p>
           </div>
         </div>
         {show === true ? (

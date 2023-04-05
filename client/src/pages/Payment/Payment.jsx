@@ -7,13 +7,16 @@ import { loadStripe } from "@stripe/stripe-js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Payment.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setCurrentUser } from "../../actions/currentUser";
+
 const Payment = () => {
   const dispatch = useDispatch();
   const stripePromise = loadStripe(
     "pk_test_51MkL9hSI12B6tnh4vc1PefQeqBBzJrU6XIJK3f8PhSjmeWIR5c4Tn7RRLy7fMmXZXem5dEYnGw2rRe4eubrxD1ol00prZTNk1G"
   );
+
+  const user = useSelector((state) => state.currentUserReducer);
+  const userId = user?.result?._id;
+  const [count, setCount] = useState(user?.result?.nOfQuestionPerDay);
 
   const [plan, setPlan] = useState(0);
 
@@ -21,13 +24,29 @@ const Payment = () => {
     setPlan(data);
   };
 
-  // useEffect(()=>{
-  //   dispatch(setCurrentUser());
-  // },[dispatch])
+  const successMessage = async () => {
+    if (plan === 100) {
+      await fetch(
+        `https://stackoverflow-server-9k5a.onrender.com/user/updateSub/${userId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(count + 5),
+        }
+      );
+      setCount(count + 5);
+    } else if (plan === 1000) {
+      await fetch(
+        `https://stackoverflow-server-9k5a.onrender.com/user/updateSub/${userId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(count + 10000),
+        }
+      );
+      setCount(count + 10000);
+    }
 
-  
+    
 
-  const successMessage = () => {
     return (
       <div className="success-msg">
         <svg
@@ -52,35 +71,35 @@ const Payment = () => {
 
   return (
     <>
-        <div className="home-container-1">
-          <div className="home-container-2">
-            <div className="container">
-              <div className="py-5 text-center">
-                <h4>Payment Gateway</h4>
-              </div>
+      <div className="home-container-1">
+        <div className="home-container-2">
+          <div className="container">
+            <div className="py-5 text-center">
+              <h4>Payment Gateway</h4>
+            </div>
 
-              <div className="row s-box">
-                {paymentCompleted ? (
-                  successMessage()
-                ) : (
-                  <>
-                    <div className="col-md-5 order-md-2 mb-4">
-                      {<Plans plans={plans} />}
-                    </div>
-                    <div className="col-md-7 order-md-1">
-                      <Elements stripe={stripePromise}>
-                        <CheckoutForm
-                          amount={plan}
-                          setPaymentCompleted={setPaymentCompleted}
-                        />
-                      </Elements>
-                    </div>
-                  </>
-                )}
-              </div>
+            <div className="row s-box">
+              {paymentCompleted ? (
+                successMessage()
+              ) : (
+                <div>
+                  <div className="order-md-2 mb-4">
+                    {<Plans plans={plans} />}
+                  </div>
+                  <div className="order-md-1">
+                    <Elements stripe={stripePromise}>
+                      <CheckoutForm
+                        amount={plan}
+                        setPaymentCompleted={setPaymentCompleted}
+                      />
+                    </Elements>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
+      </div>
     </>
   );
 };

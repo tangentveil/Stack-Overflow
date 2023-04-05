@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import addFriends from "../../../assets/user-plus-solid.svg";
-import UserToFollow from '../../../assets/user-check-solid.svg'
-import image from '../../../assets/71840.jpg'
+import UserToFollow from "../../../assets/user-check-solid.svg";
+import image from "../../../assets/71840.jpg";
 import { useSelector } from "react-redux";
 
 const Follow = ({ userdetails }) => {
-// console.log(userdetails)
+  // console.log(userdetails)
   const user = useSelector((state) => state.currentUserReducer);
   const id = user?.result?._id;
 
@@ -20,18 +20,17 @@ const Follow = ({ userdetails }) => {
 
   const handleFollow = async (e) => {
     await fetch(
-      `http://localhost:5000/community/user/following/${userdetails._id}` ||
-        `https://stackoverflow-server-9k5a.onrender.com/community/user/following/${userdetails._id}`,
+      `https://stackoverflow-server-9k5a.onrender.com/community/user/following/${userdetails._id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/JSON", token: token },
         body: JSON.stringify({ user: `${id}` }),
       }
     );
-    
-    if(id !== userdetails._id){
+
+    if (id !== userdetails._id) {
       setFollow(UserToFollow);
-    } 
+    }
   };
 
   return (
@@ -45,11 +44,7 @@ const Follow = ({ userdetails }) => {
       >
         <Link to={`Users/${userdetails._id}`}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={`${image}`}
-              className="Profileimage"
-              alt=""
-            />
+            <img src={`${image}`} className="Profileimage" alt="" />
             <div>
               <p style={{ marginLeft: "10px", textAlign: "start" }}>
                 {userdetails.name}

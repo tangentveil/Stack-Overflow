@@ -7,7 +7,10 @@
 }
 
 .content-post {
-    width: 97%;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
 }
 
 .image-prev,

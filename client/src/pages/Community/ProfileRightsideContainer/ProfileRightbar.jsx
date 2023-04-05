@@ -20,7 +20,6 @@ const ProfileRightbar = () => {
     const getFollowing = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/community/posts/followers/${id}` ||
             `https://stackoverflow-server-9k5a.onrender.com/community/posts/followers/${id}`
         );
         setFollowinguser(res.data);

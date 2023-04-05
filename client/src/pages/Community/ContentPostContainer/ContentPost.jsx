@@ -18,8 +18,8 @@ import { userPosts } from "../../../actions/userPosts";
 
 const ContentPost = () => {
   const user = useSelector((state) => state.currentUserReducer);
-  const {id} = useParams();
-  const dispatch  = useDispatch()
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
   // console.log(id)
 
@@ -53,7 +53,7 @@ const ContentPost = () => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
-          setPrgress(progress)
+          setPrgress(progress);
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");
@@ -71,8 +71,7 @@ const ContentPost = () => {
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             fetch(
-              `http://localhost:5000/community/posts/user/post` ||
-                `https://stackoverflow-server-9k5a.onrender.com/community/posts/user/post`,
+              `https://stackoverflow-server-9k5a.onrender.com/community/posts/user/post`,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/JSON", token: token },
@@ -85,9 +84,10 @@ const ContentPost = () => {
             ).then((data) => {
               alert("Your Post was upload successfully");
               // window.location.reload(true);
-              dispatch(allPosts())
-              dispatch(userPosts(id))
+              dispatch(allPosts());
+              dispatch(userPosts(id));
               setImagePre(null);
+              setTitle("");
               setPrgress("");
             });
           });
@@ -125,8 +125,7 @@ const ContentPost = () => {
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             fetch(
-              `http://localhost:5000/community/posts/user/post` ||
-                `https://stackoverflow-server-9k5a.onrender.com/community/posts/user/post`,
+              `https://stackoverflow-server-9k5a.onrender.com/community/posts/user/post`,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/JSON", token: token },
@@ -140,16 +139,16 @@ const ContentPost = () => {
               alert("Your Post was upload successfully");
               dispatch(allPosts());
               dispatch(userPosts(id));
-              setVideoPre(null)
-              setPrgress("")
+              setVideoPre(null);
+              setTitle("");
+              setPrgress("");
             });
           });
         }
       );
     } else {
       fetch(
-        `http://localhost:5000/community/posts/user/post` ||
-          `https://stackoverflow-server-9k5a.onrender.com/community/posts/user/post`,
+        `https://stackoverflow-server-9k5a.onrender.com/community/posts/user/post`,
         {
           method: "POST",
           headers: { "Content-Type": "application/JSON", token: token },
@@ -159,6 +158,7 @@ const ContentPost = () => {
         alert("Your Post was upload successfully");
         dispatch(allPosts());
         dispatch(userPosts(id));
+        setTitle("");
       });
     }
   };
