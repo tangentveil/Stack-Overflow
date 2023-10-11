@@ -26,6 +26,8 @@ const ProfileBio = ({ currentProfile }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    console.log("current Profile data : ", currentProfile);
+
     const getuser = async () => {
       try {
         const res = await axios.get(
@@ -41,8 +43,8 @@ const ProfileBio = ({ currentProfile }) => {
 
   // console.log(users)
 
-  let followersCounter = users?.Followers?.length;
-  let followingCounter = users?.Following?.length;
+  let followersCounter = currentProfile?.Followers?.length;
+  let followingCounter = currentProfile?.Following?.length;
 
   const [Followinguser, setFollowinguser] = useState([]);
 

@@ -2,14 +2,12 @@ import React from "react";
 import "./Post.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import image from "../../../assets/71840.jpg";
 import shareIcon from "../../../assets/share.svg";
 import commentIcon from "../../../assets/comment-solid.svg";
 import LikeIcon from "../../../assets/unlike.svg";
 import anotherLikeIcon from "../../../assets/like.svg";
 import trash from "../../../assets/trash-solid.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import copy from "copy-to-clipboard";
 import Avatar from "../../../components/Avatar";
@@ -17,10 +15,10 @@ import { allPosts } from "../../../actions/posts";
 import { userPosts } from "../../../actions/userPosts";
 
 const Post = ({ post }) => {
+  console.log('post details :',post)
   const users = useSelector((state) => state.currentUserReducer);
   const userId = users?.result?._id;
-  const { id } = useParams();
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState('');
   const token = users?.token;
   const dispatch = useDispatch();
 
@@ -117,10 +115,9 @@ const Post = ({ post }) => {
     }
   };
 
-  const location = useLocation();
   const url = window.location.href;
 
-  console.log(url);
+  // console.log(url);
 
   const handleShare = () => {
     copy(url);
@@ -129,7 +126,7 @@ const Post = ({ post }) => {
 
   const handleDelete = async () => {
     await fetch(
-      `https://stackoverflow-server-9k5a.onrender.com/community/posts/delete/post/${post._id}`,
+      `https://stackoverflow-server-9k5a.onrender.com/community/posts/delete/post/${post?._id}`,
       {
         method: "DELETE",
       }
@@ -154,7 +151,7 @@ const Post = ({ post }) => {
                   cursor: "pointer",
                 }}
               >
-                <Link to={`/Users/${users?.result?._id}`} className="Avatar">
+                <Link to={`/Users/${post?.user}`} className="Avatar">
                   <Avatar
                     backgroundColor="#009dff"
                     px="10px"

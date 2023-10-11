@@ -3,6 +3,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
+import decode from "jwt-decode";
 
 import Home from "./pages/Home/Home";
 import Auth from "./pages/Auth/Auth";
@@ -11,21 +12,39 @@ import AskQuestion from "./pages/AskQuestion";
 import DisplayQuestion from "./pages/DisplayQuestion";
 import { useEffect, useState } from "react";
 import { fetchAllQuestions } from "./actions/AskQuestion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Tags from "./pages/Tags/Tags";
 import Users from './pages/Users'
-import { fetchAllUsers } from "./actions/users";
 import { allPosts } from "./actions/posts";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Chat from "./pages/ChatBot/Chat";
 import Payment from "./pages/Payment/Payment";
 import Community from "./pages/Community/Community";
+import { setCurrentUser } from "./actions/currentUser";
 
 
 function App() {
+  const User = useSelector((state) => state.currentUserReducer);
   const dispatch = useDispatch();
 
   // another dispatch(fetchAllQuestions()); used in actions/AskQuestion.js
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch(setCurrentUser(null));
+  };
+
+  // rendering on every refresh, so user icon won't disappear
+  useEffect(() => {
+    // auto logout in 1 hour
+    const token = User?.token;
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        handleLogout();
+      }
+    }
+    dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchAllQuestions());

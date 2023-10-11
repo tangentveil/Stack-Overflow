@@ -45,7 +45,7 @@ const UsersList = () => {
           ? users
               .filter(
                 (user) =>
-                  search.toLocaleLowerCase() === user.name.toLocaleLowerCase()
+                  user.name.toLocaleLowerCase().includes(search)
               )
               .map((user) => {
                 return <User user={user} key={user?._id} />;

@@ -32,7 +32,7 @@ const Chat = () => {
   const [response, setResponse] = useState("");
 
   // console.log(prompt);
-  // console.log(response);
+  console.log(response);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -15,10 +15,9 @@
     box-sizing: border-box;
 }
 
-/* .float {
-    float: right;
-    margin-top: 100px;
-} */
+input{
+    outline: none;
+}
 
 @media only screen and (max-width: 980px) {
     .home-container-1 {

@@ -54,8 +54,8 @@ const CheckoutForm = (props) => {
       type: "card",
       card: elements.getElement(CardNumberElement),
       billing_details: {
-        name,
-        email,
+        name:'',
+        email:'',
       },
     };
 
@@ -147,7 +147,7 @@ const CheckoutForm = (props) => {
 
         <hr className="mb-4" />
         <button
-          style={{ backgroundColor: "#009dff", border:"none" }}
+          style={{ backgroundColor: "#009dff", border: "none" }}
           className="btn btn-dark w-100"
           type="submit"
           disabled={loading}
@@ -161,7 +161,11 @@ const CheckoutForm = (props) => {
             `PAY ₹${props.amount}`
           )}
         </button>
-        {errorMsg && <div className="text-danger mt-2">{errorMsg}</div>}
+        {errorMsg ? (
+          <div className="text-danger mt-2">{errorMsg}</div>
+        ) : (
+          <div></div>
+        )}
       </form>
     </>
   );
