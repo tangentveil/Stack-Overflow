@@ -8,9 +8,9 @@ export const askQuestion = (questionData, navigate) => async (dispatch) => {
     dispatch({ type: "POST_QUESTION", payload: data });
 
     dispatch(fetchAllQuestions());
-
+    
     // navigate to home page after signup
-    // navigate("/");
+    navigate("/");
   } catch (error) {
     console.log(error);
   }

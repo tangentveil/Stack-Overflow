@@ -17,40 +17,43 @@ const AskQuestion = () => {
   const [questionTitle, setQuestionTitle] = useState("");
   const [questionBody, setQuestionBody] = useState("");
   const [questionTags, setQuestionTags] = useState("");
-  const [count, setCount] = useState(user?.result?.nOfQuestionPerDay);
+  // const [count, setCount] = useState(user?.result?.nOfQuestionPerDay);
 
   const handleSubmit = async (e) => {
     // console.log(typeof(questionTitle))
     e.preventDefault();
-    if (count > 0) {
+    if(!questionTitle) alert("Please Enter Question Title");
+    if(!questionBody) alert("Please provide more information");
+    // if (count > 0) {
       dispatch(
         askQuestion({
           questionTitle,
           questionBody,
           questionTags,
           userPosted: user.result.name,
-        })
+        }), navigate
       );
 
-      const nOfQuestionPerDay = {
-        nOfQuestionPerDay: count - 1,
-      };
+      // const nOfQuestionPerDay = {
+      //   nOfQuestionPerDay: count - 1,
+      // };
 
-      await fetch(
-        `https://stackoverflow-server-9k5a.onrender.com/user/updateSub/${userId}`,
-        {
-          method: "PUT",
-          body: JSON.stringify(nOfQuestionPerDay),
-        }
-      );
+      // await fetch(
+      //   `https://stackoverflow-server-9k5a.onrender.com/user/updateSub/${userId}`,
+      //   {
+      //     method: "PUT",
+      //     body: JSON.stringify(nOfQuestionPerDay),
+      //   }
+      // );
 
-      setCount(count - 1);
-    } else {
-      alert("Come Back Tomorrow");
-    }
+      // setCount(count - 1);
+    // } else {
+    //   alert("Come Back Tomorrow");
+    // }
+    // navigate("/")
   };
 
-  console.log(count);
+  // console.log(count);
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
@@ -72,7 +75,7 @@ const AskQuestion = () => {
               <label htmlFor="ask-ques-title">
                 <h4>Title</h4>
                 <p>
-                  Be spacific and imagine you're asking a question to another
+                  Be specific and imagine you're asking a question to another
                   person
                 </p>
                 <input
